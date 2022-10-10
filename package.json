@@ -1,5 +1,5 @@
 {
-  "name": "vite-plugin-conditional-compile",
+  "name": "vite-plugin-conditional-compiler",
   "type": "module",
   "license": "MIT",
   "version": "0.0.1",

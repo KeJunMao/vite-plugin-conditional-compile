@@ -1,4 +1,4 @@
-# vite-plugin-conditional-compile
+# vite-plugin-conditional-compiler
 
 Conditional compilation syntax based on environment variables
 
@@ -13,7 +13,7 @@ Start with `#v-ifdef` or `#v-ifndef` then append `%ENV%`, end with `#v-endif`
 ## Installation
 
 ```
-pnpm i -D vite-plugin-conditional-compile
+pnpm i -D vite-plugin-conditional-compiler
 ```
 
 ## Usage

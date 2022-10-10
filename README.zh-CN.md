@@ -1,4 +1,4 @@
-# vite-plugin-conditional-compile
+# vite-plugin-conditional-compiler
 
 基于环境变量的条件编译语法
 
@@ -13,7 +13,7 @@
 ## 安装
 
 ```
-pnpm i -D vite-plugin-conditional-compile
+pnpm i -D vite-plugin-conditional-compiler
 ```
 
 ## 使用
