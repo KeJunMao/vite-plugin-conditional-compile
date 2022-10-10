@@ -2,6 +2,8 @@
 
 Conditional compilation syntax based on environment variables
 
+English | [简体中文](./README.zh-CN.md)
+
 ## Syntax
 
 Start with `#v-ifdef` or `#v-ifndef` then append `%ENV%`, end with `#v-endif`

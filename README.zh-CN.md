@@ -2,6 +2,8 @@
 
 基于环境变量的条件编译语法
 
+[English](./README.md) | 简体中文
+
 ## 语法
 
 以 `#v-ifdef` 或 `#v-ifndef` 加 `%ENV%` 开头，以 `#v-endif` 结尾。
