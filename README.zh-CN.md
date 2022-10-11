@@ -1,16 +1,12 @@
-# vite-plugin-conditional-compiler
+<p align="center">
+  <img width="300" src="./assets/logo.svg" alt="logo of vite-plugin-conditional-compiler repository">
+</p>
 
-基于环境变量的条件编译语法
+<h2 align='center'>vite-plugin-conditional-compiler</h2>
+
+<p align="center">基于环境变量的条件编译语法</p>
 
 [English](./README.md) | 简体中文
-
-## 语法
-
-以 `#v-ifdef` 或 `#v-ifndef` 加 `%ENV%` 开头，以 `#v-endif` 结尾。
-
-- `#v-ifdef`：if defined 仅在某环境下编译
-- `#v-ifndef`：if not defined 除了某环境均编译
-- `%ENV%` Vite 中的环境变量
 
 ## 安装
 
@@ -29,6 +25,14 @@ export default defineConfig({
   plugins: [ConditionalCompile()],
 });
 ```
+
+## 语法
+
+以 `#v-ifdef` 或 `#v-ifndef` 加 `%ENV%` 开头，以 `#v-endif` 结尾。
+
+- `#v-ifdef`：if defined 仅在某环境下编译
+- `#v-ifndef`：if not defined 除了某环境均编译
+- `%ENV%` Vite 中的环境变量
 
 ## 例子
 

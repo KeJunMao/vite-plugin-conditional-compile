@@ -1,16 +1,12 @@
-# vite-plugin-conditional-compiler
+<p align="center">
+  <img width="300" src="./assets/logo.svg" alt="logo of vite-plugin-conditional-compiler repository">
+</p>
 
-Conditional compilation syntax based on environment variables
+<h2 align='center'>vite-plugin-conditional-compiler</h2>
+
+<p align="center">Conditional compilation syntax based on environment variables</p>
 
 English | [简体中文](./README.zh-CN.md)
-
-## Syntax
-
-Start with `#v-ifdef` or `#v-ifndef` then append `%ENV%`, end with `#v-endif`
-
-- `#v-ifdef`: if defined
-- `#v-ifndef`: if not defined
-- `%ENV%` Vite environment variables
 
 ## Installation
 
@@ -29,6 +25,14 @@ export default defineConfig({
   plugins: [ConditionalCompile()],
 });
 ```
+
+## Syntax
+
+Start with `#v-ifdef` or `#v-ifndef` then append `%ENV%`, end with `#v-endif`
+
+- `#v-ifdef`: if defined
+- `#v-ifndef`: if not defined
+- `%ENV%` Vite environment variables
 
 ## Examples
 
