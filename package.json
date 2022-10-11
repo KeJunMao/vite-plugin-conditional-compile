@@ -10,7 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/KeJunMao/vite-plugin-conditional-compile.git"
   },
-  "keywords": [],
+  "keywords": [
+    "vite-plugin"
+  ],
   "sideEffects": false,
   "exports": {
     ".": {

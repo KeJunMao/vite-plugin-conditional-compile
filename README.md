@@ -23,7 +23,7 @@ pnpm i -D vite-plugin-conditional-compiler
 ```ts
 // vite.config.ts
 import { defineConfig } from "vite";
-import ConditionalCompile from "vite-plugin-conditional-compile";
+import ConditionalCompile from "vite-plugin-conditional-compiler";
 
 export default defineConfig({
   plugins: [ConditionalCompile()],
