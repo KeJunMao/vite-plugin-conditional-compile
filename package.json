@@ -2,7 +2,7 @@
   "name": "vite-plugin-conditional-compiler",
   "type": "module",
   "license": "MIT",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "packageManager": "pnpm@7.12.0",
   "description": "",
   "homepage": "https://github.com/KeJunMao/vite-plugin-conditional-compile",
@@ -45,12 +45,12 @@
     "postinstall": "unbuild"
   },
   "devDependencies": {
-    "@types/node": "^18.7.21",
+    "@types/node": "^18.11.9",
     "bumpp": "^8.2.1",
     "esno": "^0.16.3",
-    "pnpm": "^7.12.2",
-    "typescript": "^4.8.3",
+    "pnpm": "^7.14.2",
+    "typescript": "^4.8.4",
     "unbuild": "^0.8.11",
-    "vite": "^3.1.3"
+    "vite": "^3.2.2"
   }
 }
