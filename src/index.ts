@@ -1,11 +1,16 @@
 import type { Plugin, ResolvedConfig } from "vite";
-
+import MagicString from "magic-string";
+import { createFilter } from "vite";
+import { ResolvedOptions, UserOptions } from "./types";
 let config: ResolvedConfig = undefined!;
 
-const replaceMatched = (code: string, _id: string) => {
+const replaceMatched = (code: string, id: string) => {
   const env = config.env;
+  const source = new MagicString(code, {
+    filename: id,
+  });
 
-  code = code.replace(
+  source.replace(
     /^.*?#v-if(n?)def\s*(\S+).*[\r\n]{1,2}([\s\S]+?)\s*.*?#v-endif.*?$/gm,
     /**
      * 条件替换
@@ -30,13 +35,31 @@ const replaceMatched = (code: string, _id: string) => {
       return isKeep ? $3 : "";
     }
   );
+
+  if (source.hasChanged()) {
+    return {
+      code: source.toString(),
+      map: source.generateMap({
+        source: id,
+        file: `${id}.map`,
+        includeContent: true,
+      }),
+    };
+  }
+};
+
+const resolveOptions = (userOptions: UserOptions): ResolvedOptions => {
   return {
-    code,
-    map: null,
+    include: ["**/*"],
+    exclude: [],
+    ...userOptions,
   };
 };
 
-const VitePluginConditionalCompile = (): Plugin => {
+const VitePluginConditionalCompile = (
+  userOptions: UserOptions = {}
+): Plugin => {
+  const options = resolveOptions(userOptions);
   return {
     name: "vite-plugin-conditional-compile",
     enforce: "pre",
@@ -44,7 +67,10 @@ const VitePluginConditionalCompile = (): Plugin => {
       config = _config;
     },
     transform(code, id) {
-      return replaceMatched(code, id);
+      const filter = createFilter(options.include, options.exclude);
+      if (filter(id)) {
+        return replaceMatched(code, id);
+      }
     },
   };
 };

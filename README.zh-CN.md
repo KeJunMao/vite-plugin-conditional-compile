@@ -34,6 +34,21 @@ export default defineConfig({
 - `#v-ifndef`：if not defined 除了某环境均编译
 - `%ENV%` Vite 中的环境变量
 
+## 配置
+
+```ts
+export interface Options {
+  /**
+   * @default ["**/*"]
+   */
+  include: FilterPattern;
+  /**
+   * @default []
+   */
+  exclude: FilterPattern;
+}
+```
+
 ## 例子
 
 ```js

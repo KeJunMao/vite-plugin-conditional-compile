@@ -39,6 +39,7 @@
     "build": "unbuild",
     "dev": "unbuild --stub",
     "prepublishOnly": "nr build",
+    "play": "vite ./playground",
     "release": "bumpp && npm publish",
     "start": "esno src/index.ts",
     "typecheck": "tsc --noEmit",
@@ -52,5 +53,8 @@
     "typescript": "^4.8.4",
     "unbuild": "^0.8.11",
     "vite": "^3.2.2"
+  },
+  "dependencies": {
+    "magic-string": "^0.26.7"
   }
 }

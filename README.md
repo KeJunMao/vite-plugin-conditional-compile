@@ -34,6 +34,21 @@ Start with `#v-ifdef` or `#v-ifndef` then append `%ENV%`, end with `#v-endif`
 - `#v-ifndef`: if not defined
 - `%ENV%` Vite environment variables
 
+## Configuration
+
+```ts
+export interface Options {
+  /**
+   * @default ["**/*"]
+   */
+  include: FilterPattern;
+  /**
+   * @default []
+   */
+  exclude: FilterPattern;
+}
+```
+
 ## Examples
 
 ```js

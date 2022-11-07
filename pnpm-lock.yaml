@@ -4,10 +4,14 @@ specifiers:
   '@types/node': ^18.11.9
   bumpp: ^8.2.1
   esno: ^0.16.3
+  magic-string: ^0.26.7
   pnpm: ^7.14.2
   typescript: ^4.8.4
   unbuild: ^0.8.11
   vite: ^3.2.2
+
+dependencies:
+  magic-string: 0.26.7
 
 devDependencies:
   '@types/node': 18.11.9
@@ -1533,12 +1537,11 @@ packages:
       sourcemap-codec: 1.4.8
     dev: true
 
-  /magic-string/0.26.3:
-    resolution: {integrity: sha512-u1Po0NDyFcwdg2nzHT88wSK0+Rih0N1M+Ph1Sp08k8yvFFU3KR72wryS7e1qMPJypt99WB7fIFVCA92mQrMjrg==}
+  /magic-string/0.26.7:
+    resolution: {integrity: sha512-hX9XH3ziStPoPhJxLq1syWuZMxbDvGNbVchfrdCtanC7D13888bMFow61x8axrx+GfHLtVeAx2kxL7tTGRl+Ow==}
     engines: {node: '>=12'}
     dependencies:
       sourcemap-codec: 1.4.8
-    dev: true
 
   /merge2/1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
@@ -1722,7 +1725,7 @@ packages:
       rollup: ^2.55
       typescript: ^4.1
     dependencies:
-      magic-string: 0.26.3
+      magic-string: 0.26.7
       rollup: 2.79.0
       typescript: 4.8.4
     optionalDependencies:
@@ -1835,7 +1838,6 @@ packages:
 
   /sourcemap-codec/1.4.8:
     resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
-    dev: true
 
   /string-argv/0.3.1:
     resolution: {integrity: sha512-a1uQGz7IyVy9YwhqjZIZu1c8JO8dNIe20xBmSS6qu9kv++k3JGzCVmprbNN5Kn+BgzD5E7YYwg1CcjuJMRNsvg==}
@@ -1909,7 +1911,7 @@ packages:
       globby: 13.1.2
       hookable: 5.3.0
       jiti: 1.14.0
-      magic-string: 0.26.3
+      magic-string: 0.26.7
       mkdirp: 1.0.4
       mkdist: 0.3.13_typescript@4.8.4
       mlly: 0.5.14
