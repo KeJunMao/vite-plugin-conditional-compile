@@ -42,8 +42,7 @@
     "play": "vite ./playground",
     "release": "bumpp && npm publish",
     "start": "esno src/index.ts",
-    "typecheck": "tsc --noEmit",
-    "postinstall": "unbuild"
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@types/node": "^18.11.12",
