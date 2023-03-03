@@ -28,11 +28,14 @@ export default defineConfig({
 
 ## Syntax
 
-Start with `#v-ifdef` or `#v-ifndef` then append `%ENV%`, end with `#v-endif`
+Start with `#v-ifdef` or `#v-ifndef`, then append `%ENV%`, end with `#v-endif`, you can also use `#v-else`.
 
 - `#v-ifdef`: if defined
 - `#v-ifndef`: if not defined
 - `%ENV%` Vite environment variables
+
+> **Warning**
+> The `#v-ifndef` is deprecated in the next version, maybe :)
 
 ## Configuration
 
@@ -59,11 +62,14 @@ value = 1;
 ```
 
 ```css
-/* Compile except the development environment */
-/* #v-ifndef DEV */
+/* Compile in red except for development environments, otherwise white */
 .code {
-}
+/* #v-ifndef DEV */
+  color: red;
+/* v-else */
+  color: white
 /* #v-endif */
+}
 ```
 
 ```js
@@ -84,8 +90,8 @@ value = 1;
 
 ```js
 // Allow specified values
-// Compile only when 'VITE_MY_ENV' exists and is equal to hi
-// #v-ifdef VITE_MY_ENV=hi
+// Compile only when 'VITE_MY_ENV' exists and is not equal to hi
+// #v-ifdef VITE_MY_ENV!=hi
 value = 1;
 // #v-endif
 ```

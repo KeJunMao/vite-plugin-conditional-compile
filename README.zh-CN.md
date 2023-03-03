@@ -28,11 +28,14 @@ export default defineConfig({
 
 ## 语法
 
-以 `#v-ifdef` 或 `#v-ifndef` 加 `%ENV%` 开头，以 `#v-endif` 结尾。
+以 `#v-ifdef` 或 `#v-ifndef` 加 `%ENV%` 开头，以 `#v-endif` 结尾。你也可以使用`#v-else`。
 
 - `#v-ifdef`：if defined 仅在某环境下编译
 - `#v-ifndef`：if not defined 除了某环境均编译
 - `%ENV%` Vite 中的环境变量
+
+> **Warning**
+> `#v-ifndef`在下一个版本中被废弃，也许:)
 
 ## 配置
 
@@ -59,9 +62,14 @@ value = 1;
 ```
 
 ```css
-/* 除了开发环境都编译 */
+/* 除开发环境外编译为红色，否则白色 */
 /* #v-ifndef DEV */
 .code {
+/* #v-ifndef DEV */
+  color: red;
+/* v-else */
+  color: white
+/* #v-endif */
 }
 /* #v-endif */
 ```
@@ -84,8 +92,8 @@ value = 1;
 
 ```js
 // 允许使用指定值
-// 仅在 VITE_MY_ENV 存在且等于 hi 时编译
-// #v-ifdef VITE_MY_ENV=hi
+// 仅在 VITE_MY_ENV 存在且不等于 hi 时编译
+// #v-ifdef VITE_MY_ENV!=hi
 value = 1;
 // #v-endif
 ```
