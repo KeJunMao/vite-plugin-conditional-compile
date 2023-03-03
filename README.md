@@ -64,11 +64,11 @@ value = 1;
 ```css
 /* Compile in red except for development environments, otherwise white */
 .code {
-/* #v-ifndef DEV */
+  /* #v-ifndef DEV */
   color: red;
-/* v-else */
-  color: white
-/* #v-endif */
+  /* #v-else */
+  color: white;
+  /* #v-endif */
 }
 ```
 

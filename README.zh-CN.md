@@ -34,8 +34,7 @@ export default defineConfig({
 - `#v-ifndef`：if not defined 除了某环境均编译
 - `%ENV%` Vite 中的环境变量
 
-> **Warning**
-> `#v-ifndef`在下一个版本中被废弃，也许:)
+> **Warning** > `#v-ifndef`在下一个版本中被废弃，也许:)
 
 ## 配置
 
@@ -63,15 +62,13 @@ value = 1;
 
 ```css
 /* 除开发环境外编译为红色，否则白色 */
-/* #v-ifndef DEV */
 .code {
-/* #v-ifndef DEV */
+  /* #v-ifndef DEV */
   color: red;
-/* v-else */
-  color: white
-/* #v-endif */
+  /* #v-else */
+  color: white;
+  /* #v-endif */
 }
-/* #v-endif */
 ```
 
 ```js

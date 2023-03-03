@@ -91,7 +91,7 @@ export class Context {
   }
   parseElse(code: string) {
     const [_, ifCode, elseCode] = code?.match(
-      /^([\s\S]*?).*#v-else\s*[\r\n]{1,2}([\s\S]*)$/
+      /^([\s\S]*?).*#v-else.*[\r\n]{1,2}([\s\S]*)$/
     ) ?? [code, "", ""];
     return {
       ifCode: ifCode ? ifCode : code,

@@ -1,3 +1,5 @@
+import "./style.css";
+
 const render = (s: string) => {
   // @ts-expect-error
   const p = document.createElement("p");

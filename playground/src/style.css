@@ -1,0 +1,7 @@
+body {
+  /* #v-ifdef DEV */
+  color: red;
+  /* #v-else */
+  color: blue;
+  /* #v-endif */
+}
