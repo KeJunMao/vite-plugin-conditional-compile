@@ -1,9 +1,63 @@
-let value: string;
+const render = (s: string) => {
+  const p = document.createElement("p");
+  p.innerText = s;
+  document.body.appendChild(p);
+};
+
+render("no conditional");
+
 // #v-ifdef DEV
-value = "dev";
-// #v-endif
-// #v-ifdef PROD
-value = "prod";
+render("Conditional: DEV");
 // #v-endif
 
-console.log(value);
+// #v-ifdef PROD
+render("Conditional: PROD");
+// #v-endif
+
+// #v-ifdef !DEV
+render("Conditional: !DEV");
+// #v-endif
+
+// #v-ifdef !PROD
+render("Conditional: !PROD");
+// #v-endif
+
+// #v-ifndef DEV
+render("Conditional: n DEV");
+// #v-endif
+
+// #v-ifndef PROD
+render("Conditional: n PROD");
+// #v-endif
+
+// #v-ifdef DEV||PROD
+render("Conditional: DEV||PROD");
+// #v-endif
+
+// #v-ifdef !DEV||PROD
+render("Conditional: !DEV||PROD");
+// #v-endif
+
+// #v-ifdef DEV=true
+render("Conditional: DEV=true");
+// #v-endif
+
+// #v-ifdef PROD!=true
+render("Conditional: PROD!=true");
+// #v-endif
+
+// #v-ifdef !DEV=false
+render("Conditional: !DEV=false");
+// #v-endif
+
+// #v-ifdef !DEV!=true
+render("Conditional: !DEV!=true");
+// #v-endif
+
+// #v-ifdef !DEV!=true||PROD=false
+render("Conditional: !DEV!=true||PROD=false");
+// #v-endif
+
+// #v-ifndef DEV!=true||PROD=true
+render("Conditional: n DEV!=true||PROD=true");
+// #v-endif
