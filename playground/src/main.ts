@@ -1,6 +1,8 @@
 const render = (s: string) => {
+  // @ts-expect-error
   const p = document.createElement("p");
   p.innerText = s;
+  // @ts-expect-error
   document.body.appendChild(p);
 };
 
@@ -54,8 +56,10 @@ render("Conditional: !DEV=false");
 render("Conditional: !DEV!=true");
 // #v-endif
 
-// #v-ifdef !DEV!=true||PROD=false
-render("Conditional: !DEV!=true||PROD=false");
+// #v-ifdef !DEV=true||PROD=true
+render("Conditional: !DEV=true||PROD=true");
+// #v-else
+render("Conditional: !DEV=true||PROD=true else");
 // #v-endif
 
 // #v-ifndef DEV!=true||PROD=true

@@ -1,15 +1,19 @@
 import MagicString from "magic-string";
-import { createFilter, ResolvedConfig } from "vite";
+import { createFilter, ResolvedConfig, createLogger, Logger } from "vite";
 import { ResolvedOptions } from "./types";
 
 export class Context {
   env!: Record<string, any>;
   blockRegex: RegExp;
   filter: any;
+  logger: Logger;
   constructor(public options: ResolvedOptions) {
     this.blockRegex =
       /^.*?#v-if(n?)def\s*(\S+).*[\r\n]{1,2}([\s\S]+?)\s*.*?#v-endif.*?$/gm;
     this.filter = createFilter(this.options.include, this.options.exclude);
+    this.logger = createLogger("info", {
+      prefix: "[vite-plugin-conditional-compile]",
+    });
   }
 
   setEnv(config: ResolvedConfig) {
@@ -17,19 +21,25 @@ export class Context {
   }
 
   transform(code: string, id: string) {
-    if (!this.filter(id)) return;
-    const source = this.createSource(code, id);
-    source.replace(this.blockRegex, this.blockReplaceHandler.bind(this));
+    try {
+      if (!this.filter(id)) return;
+      const source = this.createSource(code, id);
+      source.replace(this.blockRegex, this.blockReplaceHandler.bind(this));
 
-    if (source.hasChanged()) {
-      return {
-        code: source.toString(),
-        map: source.generateMap({
-          source: id,
-          file: `${id}.map`,
-          includeContent: true,
-        }),
-      };
+      if (source.hasChanged()) {
+        return {
+          code: source.toString(),
+          map: source.generateMap({
+            source: id,
+            file: `${id}.map`,
+            includeContent: true,
+          }),
+        };
+      }
+    } catch (error: any) {
+      this.logger.error(error, {
+        timestamp: true,
+      });
     }
   }
   blockReplaceHandler(_: string, ...args: any[]) {
@@ -41,16 +51,23 @@ export class Context {
     const conditionals = this.parseConditional(conditional);
     const isKeep = conditionals.some((subConditional) => {
       const isNot = startNot !== subConditional.isNot;
-      if (subConditional.value === undefined) {
-        return !!this.env[subConditional.key] !== isNot;
-      } else {
-        return (
-          (String(this.env[subConditional.key]) === subConditional.value) !==
-          isNot
+      const value = this.env[subConditional.key];
+      if (!Object.hasOwn(this.env, subConditional.key)) {
+        this.logger.warn(
+          `No '${subConditional.key}' propertie in Vite environment variables`,
+          {
+            timestamp: true,
+          }
         );
       }
+      if (subConditional.value === undefined) {
+        return !!value !== isNot;
+      } else {
+        return (String(value) === subConditional.value) !== isNot;
+      }
     });
-    return isKeep ? code : "";
+    const { ifCode, elseCode } = this.parseElse(code);
+    return isKeep ? ifCode : elseCode;
   }
   parseBlockReplaceHandlerParams([$1, $2, $3]: string[]) {
     return {
@@ -72,6 +89,16 @@ export class Context {
       };
     });
   }
+  parseElse(code: string) {
+    const [_, ifCode, elseCode] = code?.match(
+      /^([\s\S]*?).*#v-else\s*[\r\n]{1,2}([\s\S]*)$/
+    ) ?? [code, "", ""];
+    return {
+      ifCode: ifCode ? ifCode : code,
+      elseCode: elseCode ? elseCode : "",
+    };
+  }
+
   createSource(code: string, id: string) {
     return new MagicString(code, {
       filename: id,
