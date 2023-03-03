@@ -38,7 +38,7 @@
   "scripts": {
     "build": "unbuild",
     "dev": "unbuild --stub",
-    "prepublishOnly": "nr build",
+    "prepublishOnly": "pnpm build",
     "play": "vite ./playground",
     "release": "bumpp",
     "start": "esno src/index.ts",
