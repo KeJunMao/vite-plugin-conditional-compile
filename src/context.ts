@@ -1,5 +1,5 @@
 import MagicString from "magic-string";
-import { createFilter, ResolvedConfig, createLogger, Logger } from "vite";
+import { createFilter, createLogger, Logger } from "vite";
 import { ResolvedOptions } from "./types";
 
 export class Context {
@@ -16,8 +16,8 @@ export class Context {
     });
   }
 
-  setEnv(config: ResolvedConfig) {
-    this.env = config.env;
+  setEnv(env: Record<string, any>) {
+    this.env = env;
   }
 
   transform(code: string, id: string) {
@@ -42,6 +42,7 @@ export class Context {
       });
     }
   }
+
   blockReplaceHandler(_: string, ...args: any[]) {
     const {
       isNot: startNot,
@@ -69,6 +70,7 @@ export class Context {
     const { ifCode, elseCode } = this.parseElse(code);
     return isKeep ? ifCode : elseCode;
   }
+
   parseBlockReplaceHandlerParams([$1, $2, $3]: string[]) {
     return {
       isNot: !!$1,
@@ -76,6 +78,7 @@ export class Context {
       code: $3,
     };
   }
+
   parseConditional(conditional: string) {
     return conditional.split("||").map((subConditional) => {
       // @ts-expect-error
@@ -89,6 +92,7 @@ export class Context {
       };
     });
   }
+
   parseElse(code: string) {
     const [_, ifCode, elseCode] = code?.match(
       /^([\s\S]*?).*#v-else.*[\r\n]{1,2}([\s\S]*)$/

@@ -1,0 +1,7 @@
+{
+  // #v-ifdef PROD
+  "data": "PROD",
+  // #v-else
+  "data": "PROD else"
+  // #v-endif
+}

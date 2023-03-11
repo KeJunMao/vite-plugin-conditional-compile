@@ -1,0 +1,7 @@
+body {
+  /* #v-ifdef DEV */
+  content: "DEV";
+  /* #v-else */
+  content: "DEV else";
+  /* #v-endif */
+}

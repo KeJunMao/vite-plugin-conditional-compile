@@ -1,0 +1,118 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Context > DEV env 1`] = `
+"body {
+  content: \\"DEV\\";
+
+}
+
+{
+  \\"data\\": \\"PROD else\\"
+}
+
+import { test } from \\"vitest\\";
+console.log(\\"DEV\\", \\"vitest\\");
+
+
+const Component = () => <div>
+    DEV
+    DEV=true
+
+</div>;
+
+<template>
+  <div class=\\"app\\">
+
+    Default
+  </div>
+</template>
+
+<script lang=\\"ts\\" setup>
+const data = ref(0);
+
+</script>
+
+<style>
+.app {
+  color: red;
+}
+</style>
+"
+`;
+
+exports[`Context > PROD env 1`] = `
+"body {
+  content: \\"DEV else\\";
+}
+
+{
+  \\"data\\": \\"PROD\\",
+
+}
+
+import { test } from \\"node:test\\";
+console.log(\\"DEV else\\", \\"node:test\\");
+
+const Component = () => <div>
+
+
+    !PROD!=true
+</div>;
+
+<template>
+  <div class=\\"app\\">
+    !DEV
+    Default
+  </div>
+</template>
+
+<script lang=\\"ts\\" setup>
+const data = ref(0);
+data.value = 1;
+</script>
+
+<style>
+.app {
+
+}
+</style>
+"
+`;
+
+exports[`Context > empty env 1`] = `
+"body {
+  content: \\"DEV else\\";
+}
+
+{
+  \\"data\\": \\"PROD else\\"
+}
+
+import { test } from \\"node:test\\";
+console.log(\\"DEV else\\", \\"node:test\\");
+
+const Component = () => <div>
+
+
+
+</div>;
+
+<template>
+  <div class=\\"app\\">
+    !DEV
+    Default
+  </div>
+</template>
+
+<script lang=\\"ts\\" setup>
+const data = ref(0);
+
+</script>
+
+<style>
+.app {
+
+}
+</style>
+"
+`;

@@ -1,14 +1,7 @@
 import type { Plugin } from "vite";
-import { ResolvedOptions, UserOptions } from "./types";
+import { UserOptions } from "./types";
 import { Context } from "./context";
-
-const resolveOptions = (userOptions: UserOptions): ResolvedOptions => {
-  return {
-    include: ["**/*"],
-    exclude: [],
-    ...userOptions,
-  };
-};
+import { resolveOptions } from "./options";
 
 const VitePluginConditionalCompile = (
   userOptions: UserOptions = {}
@@ -19,7 +12,7 @@ const VitePluginConditionalCompile = (
     name: "vite-plugin-conditional-compile",
     enforce: "pre",
     configResolved(_config) {
-      ctx.setEnv(_config);
+      ctx.setEnv(_config.env);
     },
     transform: (code, id) => ctx.transform(code, id),
   };
