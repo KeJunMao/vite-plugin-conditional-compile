@@ -26,19 +26,19 @@ render("Conditional: !DEV");
 render("Conditional: !PROD");
 // #v-endif
 
-// #v-ifndef DEV
+// #v-ifdef DEV
 render("Conditional: n DEV");
 // #v-endif
 
-// #v-ifndef PROD
+// #v-ifdef PROD
 render("Conditional: n PROD");
 // #v-endif
 
-// #v-ifdef DEV||PROD
+// #v-ifdef (DEV||PROD)
 render("Conditional: DEV||PROD");
 // #v-endif
 
-// #v-ifdef !DEV||PROD
+// #v-ifdef (!DEV||PROD)
 render("Conditional: !DEV||PROD");
 // #v-endif
 
@@ -58,12 +58,12 @@ render("Conditional: !DEV=false");
 render("Conditional: !DEV!=true");
 // #v-endif
 
-// #v-ifdef !DEV=true||PROD=true
+// #v-ifdef (!DEV=true||PROD=true)
 render("Conditional: !DEV=true||PROD=true");
 // #v-else
 render("Conditional: !DEV=true||PROD=true else");
 // #v-endif
 
-// #v-ifndef DEV!=true||PROD=true
+// #v-ifdef (DEV!=true||PROD=true)
 render("Conditional: n DEV!=true||PROD=true");
 // #v-endif

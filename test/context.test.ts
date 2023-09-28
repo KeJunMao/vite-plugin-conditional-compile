@@ -1,5 +1,5 @@
 import { describe, it } from "vitest";
-import { Context } from "../src/context";
+import { createContext } from "../src/context";
 import { resolveOptions } from "../src/options";
 import { resolve } from "node:path";
 import fs from "fs-extra";
@@ -13,8 +13,8 @@ async function getGlobContent(cwd: string, glob: string) {
 
 async function createCtxWithEnv(env: Record<string, any> = {}) {
   const opts = resolveOptions();
-  const ctx = new Context(opts);
-  ctx.setEnv(env);
+  const ctx = createContext(opts);
+  ctx.env = env
   return ctx;
 }
 

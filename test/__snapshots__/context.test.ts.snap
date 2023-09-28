@@ -2,21 +2,19 @@
 
 exports[`Context > DEV env 1`] = `
 "body {
-  content: \\"DEV\\";
-
+content: \\"DEV\\";
 }
 
 {
-  \\"data\\": \\"PROD else\\"
+\\"data\\": \\"PROD else\\"
 }
 
 import { test } from \\"vitest\\";
 console.log(\\"DEV\\", \\"vitest\\");
 
-
 const Component = () => <div>
-    DEV
-    DEV=true
+DEV
+DEV=true
 
 </div>;
 
@@ -34,7 +32,7 @@ const data = ref(0);
 
 <style>
 .app {
-  color: red;
+color: red;
 }
 </style>
 "
@@ -42,12 +40,11 @@ const data = ref(0);
 
 exports[`Context > PROD env 1`] = `
 "body {
-  content: \\"DEV else\\";
+content: \\"DEV else\\";
 }
 
 {
-  \\"data\\": \\"PROD\\",
-
+\\"data\\": \\"PROD\\",
 }
 
 import { test } from \\"node:test\\";
@@ -56,12 +53,12 @@ console.log(\\"DEV else\\", \\"node:test\\");
 const Component = () => <div>
 
 
-    !PROD!=true
+!PROD!=true
 </div>;
 
 <template>
   <div class=\\"app\\">
-    !DEV
+!DEV
     Default
   </div>
 </template>
@@ -81,11 +78,11 @@ data.value = 1;
 
 exports[`Context > empty env 1`] = `
 "body {
-  content: \\"DEV else\\";
+content: \\"DEV else\\";
 }
 
 {
-  \\"data\\": \\"PROD else\\"
+\\"data\\": \\"PROD else\\"
 }
 
 import { test } from \\"node:test\\";
@@ -99,7 +96,7 @@ const Component = () => <div>
 
 <template>
   <div class=\\"app\\">
-    !DEV
+!DEV
     Default
   </div>
 </template>

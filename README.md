@@ -8,6 +8,9 @@
 
 English | [简体中文](./README.zh-CN.md)
 
+> **Note**
+> From v0.2.0, this plugin is essentially an wrapper of [unplugin-preprocessor-directives](https://github.com/KeJunMao/unplugin-preprocessor-directives).
+
 ## Installation
 
 ```
@@ -28,14 +31,13 @@ export default defineConfig({
 
 ## Syntax
 
-Start with `#v-ifdef` or `#v-ifndef`, then append `%ENV%`, end with `#v-endif`, you can also use `#v-else`.
+Start with `#v-ifdef`, then append `%ENV%`, end with `#v-endif`, you can also use `#v-elif` and `#v-else`.
 
 - `#v-ifdef`: if defined
-- `#v-ifndef`: if not defined
 - `%ENV%` Vite environment variables
 
-> **Warning**
-> The `#v-ifndef` is deprecated in the next version, maybe :)
+> **Error**
+> The `#v-ifndef` is deprecated in the v0.2.0 version
 
 ## Configuration
 
@@ -59,17 +61,6 @@ export interface Options {
 // #v-ifdef PROD
 value = 1;
 // #v-endif
-```
-
-```css
-/* Compile in red except for development environments, otherwise white */
-.code {
-  /* #v-ifndef DEV */
-  color: red;
-  /* #v-else */
-  color: white;
-  /* #v-endif */
-}
 ```
 
 ```js

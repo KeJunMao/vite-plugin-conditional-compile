@@ -1,4 +1,5 @@
 import type { FilterPattern } from "vite";
+import { Directive, FunctionDirective } from 'unplugin-preprocessor-directives'
 
 export interface Options {
   /**
@@ -13,4 +14,6 @@ export interface Options {
 
 export type UserOptions = Partial<Options>;
 
-export type ResolvedOptions = Options;
+export interface ResolvedOptions extends Options {
+  directives: (Directive | FunctionDirective)[];
+}
