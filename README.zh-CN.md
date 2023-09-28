@@ -8,7 +8,7 @@
 
 [English](./README.md) | 简体中文
 
-> **Note**
+> **Important**
 > 自 v0.2.0 开始, 这个插件本质上是[unplugin-preprocessor-directives](https://github.com/KeJunMao/unplugin-preprocessor-directives)的封装.
 
 ## 安装
@@ -36,7 +36,7 @@ export default defineConfig({
 - `#v-ifdef`：if defined 仅在某环境下编译
 - `%ENV%` Vite 中的环境变量
 
-> **Error**
+> **Warning**
 > `#v-ifndef` 在 v0.2.0 版本中已经被废弃
 
 

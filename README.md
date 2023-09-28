@@ -8,7 +8,7 @@
 
 English | [简体中文](./README.zh-CN.md)
 
-> **Note**
+> **Important**
 > From v0.2.0, this plugin is essentially an wrapper of [unplugin-preprocessor-directives](https://github.com/KeJunMao/unplugin-preprocessor-directives).
 
 ## Installation
@@ -36,7 +36,7 @@ Start with `#v-ifdef`, then append `%ENV%`, end with `#v-endif`, you can also us
 - `#v-ifdef`: if defined
 - `%ENV%` Vite environment variables
 
-> **Error**
+> **Warning**
 > The `#v-ifndef` is deprecated in the v0.2.0 version
 
 ## Configuration
