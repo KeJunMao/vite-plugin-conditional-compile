@@ -82,7 +82,7 @@ value = 1;
 ```js
 // Allow specified values
 // Compile only when 'VITE_MY_ENV' exists and is not equal to hi
-// #v-ifdef VITE_MY_ENV!=hi
+// #v-ifdef VITE_MY_ENV!='hi'
 value = 1;
 // #v-endif
 ```

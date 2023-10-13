@@ -83,7 +83,7 @@ value = 1;
 ```js
 // 允许使用指定值
 // 仅在 VITE_MY_ENV 存在且不等于 hi 时编译
-// #v-ifdef VITE_MY_ENV!=hi
+// #v-ifdef VITE_MY_ENV!='hi'
 value = 1;
 // #v-endif
 ```
