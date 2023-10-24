@@ -59,7 +59,7 @@ const vIfDefine = defineDirective<undefined>(() => ({
 export const resolveOptions = (userOptions?: UserOptions): ResolvedOptions => {
   return {
     include: ["**/*"],
-    exclude: [],
+    exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/],
     ...userOptions,
     directives: [
       vIfDefine()
