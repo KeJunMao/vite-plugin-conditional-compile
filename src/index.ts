@@ -10,7 +10,9 @@ const VitePluginConditionalCompile = (userOptions: UserOptions = {}): Plugin => 
     configResolved(config) {
       ctx.env = { ...ctx.env, ...config.env }
     },
-    transform: (code, id) => ctx.transform(code, id),
+    transform: (code, id, SSR) => {
+      ctx.env.SSR = SSR
+      return ctx.transform(code, id)
   }
 }
 
