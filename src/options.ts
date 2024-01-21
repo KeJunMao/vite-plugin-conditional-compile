@@ -1,59 +1,93 @@
 import { ResolvedOptions, UserOptions } from "./types";
-import { defineDirective } from 'unplugin-preprocessor-directives'
+import { IfStatement, IfToken, SimpleNode, SimpleToken, defineDirective, resolveConditional, simpleMatchToken } from 'unplugin-preprocessor-directives'
 
-export function resolveConditional(test: string, env = process.env) {
-  test = test || 'true'
-  test = test.trim()
-  test = test.replace(/([^=!])=([^=])/g, '$1==$2')
-  // eslint-disable-next-line no-new-func
-  const evaluateCondition = new Function('env', `with (env){ return ( ${test} ) }`)
-
-  try {
-    return evaluateCondition(env)
-  }
-  catch (error) {
-    if (error instanceof ReferenceError) {
-      const match = /(\w*?) is not defined/g.exec(error.message)
-      if (match && match[1]) {
-        const name = match[1]
-        // @ts-expect-error ignore
-        env[name] = false
-        return resolveConditional(test, env)
-      }
-    }
-    return false
-  }
+interface VIfToken extends SimpleToken {
+  type: 'ifdef' | 'else' | 'elif' | 'endif';
+  value: string;
 }
 
-const vIfDefine = defineDirective<undefined>(() => ({
-  name: '#v-ifdef',
-  nested: true,
-  pattern: {
-    start: /.*?#v-ifdef\s([\w !=&|()'"]*).*[\r\n]{1,2}/gm,
-    end: /\s*.*?#v-endif.*?$/gm,
-  },
-  processor({ matchGroup, replace, ctx }) {
-    const code = replace(matchGroup.match)
-    const regex = /.*?(#v-el(?:if|se))\s?([\w !=&|()'"]*).*[\r\n]{1,2}/gm
-    const codeBlock = [
-      '#v-ifdef',
-      matchGroup.left?.[1] || '',
-      ...ctx.XRegExp.split(code, regex),
-    ].map(v => v.trim())
+interface VIfStatement extends SimpleNode {
+  type: 'IfStatement';
+  test: string;
+  consequent: SimpleNode[];
+  alternate: SimpleNode[];
+  kind: VIfToken['type'];
+}
 
-    while (codeBlock.length) {
-      const [variant, conditional, block] = codeBlock.splice(0, 3)
-      if (variant === '#v-ifdef' || variant === '#v-elif') {
-        if (resolveConditional(conditional, ctx.env))
-          return block
+const vIfDirective = defineDirective<VIfToken, VIfStatement>((context) => {
+  return {
+    lex(comment) {
+      return simpleMatchToken(comment ?? '', /#v-(ifdef|else|elif|endif)\s?(.*)/)
+    },
+    parse(token) {
+      if (token.type === 'ifdef' || token.type === 'elif' || token.type === 'else') {
+        const node: VIfStatement = {
+          type: 'IfStatement',
+          test: token.value,
+          consequent: [],
+          alternate: [],
+          kind: token.type,
+        }
+        this.current++
+
+        while (this.current < this.tokens.length) {
+          const nextToken = this.tokens[this.current]
+
+          if (nextToken.type === 'elif' || nextToken.type === 'else') {
+            node.alternate.push(this.walk())
+            break
+          }
+          else if (nextToken.type === 'endif') {
+            this.current++ // Skip 'endif'
+            break
+          }
+          else {
+            node.consequent.push(this.walk())
+          }
+        }
+        return node
       }
-      else if (variant === '#v-else') {
-        return block
+    },
+    transform(node) {
+      if (node.type === 'IfStatement') {
+        if (resolveConditional(node.test, context.env)) {
+          return {
+            type: 'Program',
+            body: node.consequent.map(this.walk.bind(this)).filter(n => n != null),
+          }
+        }
+        else if (node.alternate) {
+          return {
+            type: 'Program',
+            body: node.alternate.map(this.walk.bind(this)).filter(n => n != null),
+          }
+        }
       }
-    }
-    return ''
-  },
-}))
+    },
+    generate(node, comment) {
+      if (node.type === 'IfStatement' && comment) {
+        let code = ''
+        if (node.kind === 'else')
+          code = `${comment.start} ${node.kind} ${comment.end}`
+
+        else
+          code = `${comment.start} #${node.kind} ${node.test}${comment.end}`
+
+        const consequentCode = node.consequent.map(this.walk.bind(this)).join('\n')
+        code += `\n${consequentCode}`
+        if (node.alternate.length) {
+          const alternateCode = node.alternate.map(this.walk.bind(this)).join('\n')
+          code += `\n${alternateCode}`
+        }
+        else {
+          code += `\n${comment.start} #endif ${comment.end}`
+        }
+        return code
+      }
+    },
+  }
+})
+
 
 
 export const resolveOptions = (userOptions?: UserOptions): ResolvedOptions => {
@@ -62,7 +96,8 @@ export const resolveOptions = (userOptions?: UserOptions): ResolvedOptions => {
     exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/],
     ...userOptions,
     directives: [
-      vIfDefine()
+      // @ts-expect-error ignore
+      vIfDirective
     ]
   };
 };

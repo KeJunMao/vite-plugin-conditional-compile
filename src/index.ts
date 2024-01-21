@@ -1,6 +1,7 @@
 import type { Plugin } from "vite";
 import { UserOptions } from "./types";
 import { createContext } from "./context";
+import remapping from '@ampproject/remapping'
 
 const VitePluginConditionalCompile = (userOptions: UserOptions = {}): Plugin => {
   const ctx = createContext(userOptions);
@@ -10,7 +11,21 @@ const VitePluginConditionalCompile = (userOptions: UserOptions = {}): Plugin => 
     configResolved(config) {
       ctx.env = { ...ctx.env, ...config.env }
     },
-    transform: (code, id) => ctx.transform(code, id),
+    transform(code, id) {
+      if (ctx.filter(id)) {
+        const transformed = ctx.transformWithMap(code, id)
+        if (transformed) {
+          const map = remapping(
+            [transformed.map, this.getCombinedSourcemap() as any],
+            () => null,
+          ) as any
+          return {
+            code: transformed.code,
+            map,
+          }
+        }
+      }
+    },
   }
 }
 

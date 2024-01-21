@@ -25,7 +25,7 @@ describe("Context", async () => {
     const ctx = await createCtxWithEnv();
     const transformCode = ctx.transform(sourceCode, "fixtures");
     expect(transformCode).not.to.equal(undefined);
-    expect(transformCode?.code).toMatchSnapshot();
+    expect(transformCode).toMatchSnapshot();
   });
   it("DEV env", async ({ expect }) => {
     const ctx = await createCtxWithEnv({
@@ -33,7 +33,7 @@ describe("Context", async () => {
     });
     const transformCode = ctx.transform(sourceCode, "fixtures");
     expect(transformCode).not.to.equal(undefined);
-    expect(transformCode?.code).toMatchSnapshot();
+    expect(transformCode).toMatchSnapshot();
   });
   it("PROD env", async ({ expect }) => {
     const ctx = await createCtxWithEnv({
@@ -41,6 +41,6 @@ describe("Context", async () => {
     });
     const transformCode = ctx.transform(sourceCode, "fixtures");
     expect(transformCode).not.to.equal(undefined);
-    expect(transformCode?.code).toMatchSnapshot();
+    expect(transformCode).toMatchSnapshot();
   });
 });
