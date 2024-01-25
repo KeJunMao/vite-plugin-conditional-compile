@@ -16,7 +16,7 @@ const VitePluginConditionalCompile = (userOptions: UserOptions = {}): Plugin => 
         const transformed = ctx.transformWithMap(code, id)
         if (transformed) {
           const map = remapping(
-            [transformed.map, this.getCombinedSourcemap() as any],
+            [this.getCombinedSourcemap() as any, transformed.map],
             () => null,
           ) as any
           return {
