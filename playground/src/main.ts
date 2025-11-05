@@ -1,4 +1,13 @@
 import "./style.css";
+// #v-ifdef !DEV
+import axios from 'axios'
+// #v-else
+const axios = {}
+// #v-endif
+
+if (axios) {
+  console.log(axios);
+}
 
 const render = (s: string) => {
   // @ts-expect-error
